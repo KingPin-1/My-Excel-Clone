@@ -130,6 +130,50 @@ alignment.forEach((alignElem) => {
 
 });
 
+let allCells = document.querySelectorAll(".cell")
+for (let i = 0; i < allCells.length; i++) {
+    addListenerToAttachCellProperties(cell);
+}
+
+function addListenerToAttachCellProperties(cell) {
+    cell.addEventListener("click", (e) => {
+        let address = addressBar.value;
+        let [rid, cid] = decodeRIDCIDFromAddress(address);
+        let cellProp = sheetDB[rid][cid];
+
+        cell.style.fontWeight = cellProp.bold ? "bold" : "normal";
+        cell.style.textDecoration = cellProp.underline ? "underline" : "none";
+        cell.style.fontStyle = cellProp.italic ? "italic" : "normal";
+        cell.style.color = cellProp.fontColor;
+        cell.style.fontFamily = cellProp.fontFamily;
+        cell.style.backgroundColor = cellProp.BGcolor;
+        cell.style.fontSize = cellProp.fontSize + "px";
+
+        switch (cellProp.alignment) {
+            case "left":
+                leftAlign.style.backgroundColor = activeColorProp;
+                centerAlign.style.backgroundColor = inactiveColorProp;
+                rightAlign.style.backgroundColor = inactiveColorProp;
+                break;
+            case "center":
+                centerAlign.style.backgroundColor = activeColorProp;
+                leftAlign.style.backgroundColor = inactiveColorProp;
+                rightAlign.style.backgroundColor = inactiveColorProp;
+                break;
+            case "right":
+                rightAlign.style.backgroundColor = activeColorProp;
+                centerAlign.style.backgroundColor = inactiveColorProp;
+                leftAlign.style.backgroundColor = inactiveColorProp;
+                break;
+        }
+
+        bold.style.backgroundColor = cellProp.bold ? activeColorProp : inactiveColorProp;
+        italic.style.backgroundColor = cellProp.italic ? activeColorProp : inactiveColorProp;
+        underline.style.backgroundColor = cellProp.underline ? activeColorProp : inactiveColorProp;
+
+    })
+}
+
 function activecell(address) {
     let [rid, cid] = decodeRIDCIDFromAddress(address);
     //Access Cell and Storage Object 
