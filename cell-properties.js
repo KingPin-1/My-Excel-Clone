@@ -28,7 +28,7 @@ let fontFamily = document.querySelector(".font-family-prop");
 let fontSize = document.querySelector(".font-size-prop");
 let fontColor = document.querySelector(".font-color-prop");
 let BGcolor = document.querySelector(".BGcolor-prop");
-let alignment = document.querySelector(".alignment");
+let alignment = document.querySelectorAll(".alignment");
 let leftAlign = alignment[0];
 let centerAlign = alignment[1];
 let rightAlign = alignment[2];
@@ -99,6 +99,36 @@ BGcolor.addEventListener("change", (e) => {
     cell.style.backgroundColor = cellProp.BGcolor;
     BGcolor.value = cellProp.BGcolor;
 })
+
+alignment.forEach((alignElem) => {
+    alignElem.addEventListener("click", (e) => {
+        let address = addressBar.value;
+        let [cell, cellProp] = activecell(address);
+
+        let alignValue = e.target.classList[0];
+        cellProp.alignment = alignValue;
+        cell.style.textAlign = cellProp.alignment;
+
+        switch (alignValue) {
+            case "left":
+                leftAlign.style.backgroundColor = activeColorProp;
+                centerAlign.style.backgroundColor = inactiveColorProp;
+                rightAlign.style.backgroundColor = inactiveColorProp;
+                break;
+            case "center":
+                centerAlign.style.backgroundColor = activeColorProp;
+                leftAlign.style.backgroundColor = inactiveColorProp;
+                rightAlign.style.backgroundColor = inactiveColorProp;
+                break;
+            case "right":
+                rightAlign.style.backgroundColor = activeColorProp;
+                centerAlign.style.backgroundColor = inactiveColorProp;
+                leftAlign.style.backgroundColor = inactiveColorProp;
+                break;
+        }
+    })
+
+});
 
 function activecell(address) {
     let [rid, cid] = decodeRIDCIDFromAddress(address);
