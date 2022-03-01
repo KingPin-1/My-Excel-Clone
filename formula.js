@@ -14,18 +14,25 @@ for (let i = 0; i < rows; i++) {
 }
 
 let formulaBar = document.querySelector(".formula-bar");
-formulaBar.addEventListener("keydown" , (e) =>{
+formulaBar.addEventListener("keydown", (e) => {
     let inputFormula = formulaBar.value
-    if( e.key === "Enter" && inputFormula ) {
-        let evaluatedValue = evaluateFormula(inputFormula)
+    if (e.key === "Enter" && inputFormula) {
+        let evaluatedValue = evaluateFormula(inputFormula);
+        //To UPDATE UI AND CELLPROP IN DB
+        setCellUIAndCellProp(evaluatedValue , inputFormula);
     }
 })
 
-function evaluateFormula(formula){
+function evaluateFormula(formula) {
     return eval(formula);
 }
 
-function setCellUIAndCellProp(evaluatedValue , formula){
+function setCellUIAndCellProp(evaluatedValue, formula) {
     let address = addressBar.value;
-
+    let [cell, cellProp] = getCellAndCellProp(address);
+    //UI update
+    cell.innerText = evaluatedValue;
+    //DB Update
+    cellProp.value = evaluatedValue;
+    cellProp.formula = formula;
 }
