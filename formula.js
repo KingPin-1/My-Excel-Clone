@@ -19,12 +19,21 @@ formulaBar.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && inputFormula) {
         let evaluatedValue = evaluateFormula(inputFormula);
         //To UPDATE UI AND CELLPROP IN DB
-        setCellUIAndCellProp(evaluatedValue , inputFormula);
+        setCellUIAndCellProp(evaluatedValue, inputFormula);
     }
 })
 
 function evaluateFormula(formula) {
-    return eval(formula);
+    let encodedFormula = formula.split(" ");
+    for (let i = 0; i < encodedFormula.length; i++) {
+        let asciiValue = encodedFormula[i].charCodeAt(0);
+        if (asciiValue >= 65 && asciiValue <= 90) {
+            let [cell, cellProp] = getCellAndCellProp(encodedFormula[i]);
+            encodedFormula[i] = cellProp.value;
+        }
+    }
+    let decodedFormula = encodedFormula.join(" ")
+    return eval(decodedFormula);
 }
 
 function setCellUIAndCellProp(evaluatedValue, formula) {
