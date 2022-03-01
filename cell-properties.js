@@ -12,7 +12,7 @@ for (let i = 0; i < rows; i++) {
             fontFamily: "monospace",
             fontSize: 14,
             fontColor: "#000000",
-            BGcolor: "#000000"
+            BGcolor: "transparent"
         }
         sheetRow.push(cellProp);
     }
@@ -130,9 +130,9 @@ alignment.forEach((alignElem) => {
 
 });
 
-let allCells = document.querySelectorAll(".cell")
+let allCells = document.querySelectorAll(".cell");
 for (let i = 0; i < allCells.length; i++) {
-    addListenerToAttachCellProperties(cell);
+    addListenerToAttachCellProperties(allCells[i]);
 }
 
 function addListenerToAttachCellProperties(cell) {
@@ -149,6 +149,16 @@ function addListenerToAttachCellProperties(cell) {
         cell.style.backgroundColor = cellProp.BGcolor;
         cell.style.fontSize = cellProp.fontSize + "px";
 
+        
+        //APPLY PROPERTIES TO UI
+        bold.style.backgroundColor = cellProp.bold ? activeColorProp : inactiveColorProp;
+        italic.style.backgroundColor = cellProp.italic ? activeColorProp : inactiveColorProp;
+        underline.style.backgroundColor = cellProp.underline ? activeColorProp : inactiveColorProp;
+        fontColor.value = cellProp.fontColor;
+        fontFamily.value = cellProp.fontFamily;
+        BGcolor.value = cellProp.BGcolor;
+        fontSize.value = cellProp.fontSize;
+        
         switch (cellProp.alignment) {
             case "left":
                 leftAlign.style.backgroundColor = activeColorProp;
@@ -166,11 +176,6 @@ function addListenerToAttachCellProperties(cell) {
                 leftAlign.style.backgroundColor = inactiveColorProp;
                 break;
         }
-
-        bold.style.backgroundColor = cellProp.bold ? activeColorProp : inactiveColorProp;
-        italic.style.backgroundColor = cellProp.italic ? activeColorProp : inactiveColorProp;
-        underline.style.backgroundColor = cellProp.underline ? activeColorProp : inactiveColorProp;
-
     })
 }
 
