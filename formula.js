@@ -3,7 +3,7 @@ for (let i = 0; i < rows; i++) {
         let cell = document.querySelector(`.cell[rid="${i}"][cid="${j}"]`);
         cell.addEventListener("blur", (e) => {
             let address = addressBar.value;
-            let [activeCell, cellProp] = activecell(address);
+            let [activeCell, cellProp] = getCellAndCellProp(address);
             let enteredData = activeCell.innerText;
 
             cellProp.value = enteredData;
@@ -27,5 +27,5 @@ function evaluateFormula(formula){
 
 function setCellUIAndCellProp(evaluatedValue , formula){
     let address = addressBar.value;
-    
+
 }
