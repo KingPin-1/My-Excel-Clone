@@ -158,7 +158,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #dfe4ea;
+    border: px solid #dfe4ea;
 }
 .address-row {
     height: 2rem;

@@ -159,7 +159,8 @@ function addListenerToAttachCellProperties(cell) {
         underline.style.backgroundColor = cellProp.underline ? activeColorProp : inactiveColorProp;
         fontColor.value = cellProp.fontColor;
         fontFamily.value = cellProp.fontFamily;
-        BGcolor.value = cellProp.BGcolor === "#000000" ? "transparent" : cellProp.BGcolor;
+        BGcolor.value = cellProp.BGcolor ;
+        // === "#000000" ? "#transparent" : cellProp.BGcolor;
         fontSize.value = cellProp.fontSize;
         
         switch (cellProp.alignment) {
